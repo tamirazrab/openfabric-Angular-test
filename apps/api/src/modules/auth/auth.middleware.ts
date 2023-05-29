@@ -10,22 +10,21 @@ export interface AuthenticatedRequest extends Request {
 
 const verifyCallback =
   (req: AuthenticatedRequest, resolve: any, reject: any) =>
-  async (err: Error, user: IUserDoc, info: string) => {
-    if (err || info || !user) {
-      return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
-    }
-    req.user = user;
-
-    resolve();
-  };
+    async (err: Error, user: IUserDoc, info: string) => {
+      if (err || info || !user) {
+        return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
+      }
+      req.user = user;
+      resolve();
+    };
 
 const authMiddleware =
   () =>
-  async (req: Request, res: Response, next: NextFunction) =>
-    new Promise<void>((resolve, reject) => {
-      passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject))(req, res, next);
-    })
-      .then(() => next())
-      .catch((err) => next(err));
+    async (req: Request, res: Response, next: NextFunction) =>
+      new Promise<void>((resolve, reject) => {
+        passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject))(req, res, next);
+      })
+        .then(() => next())
+        .catch((err) => next(err));
 
 export default authMiddleware;

@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.product-image {
+  margin-right: 20px;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-name {
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.price-container {
+  display: flex;
+  align-items: center;
+}
+
+.price-icon {
+  margin-right: 4px;
+}
+
+.price {
+  font-size: 18px;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.value {
+  flex: 1;
+}
+
+.tags {
+  margin-top: 20px;
+}
+
+.tags .label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.tags .chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.tags .chips mat-chip {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff0000;
+}

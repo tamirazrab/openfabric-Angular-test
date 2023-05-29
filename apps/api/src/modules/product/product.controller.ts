@@ -13,9 +13,12 @@ export const createProduct = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getProducts = catchAsync(async (req: Request, res: Response) => {
-  const filter = pick(req.query, ['name', 'role']);
+  const filter = pick(req.query, ['name', 'price']);
+  console.log("🚀 ~ file: product.controller.ts:17 ~ getProducts ~ filter:", filter)
   const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page', 'projectBy']);
+  console.log("🚀 ~ file: product.controller.ts:19 ~ getProducts ~ options:", options)
   const result = await productService.queryProducts(filter, options);
+  console.log("🚀 ~ file: product.controller.ts:21 ~ getProducts ~ result:", result)
   res.send(result);
 });
 
@@ -31,8 +34,8 @@ export const getProduct = catchAsync(async (req: Request, res: Response) => {
 
 export const updateProduct = catchAsync(async (req: Request, res: Response) => {
   if (typeof req.params['productId'] === 'string') {
-      const product = await productService.updateProductById(new mongoose.Types.ObjectId(req.params['productId']), req.body);
-      res.status(httpStatus.OK).send(product);
+    const product = await productService.updateProductById(new mongoose.Types.ObjectId(req.params['productId']), req.body);
+    res.status(httpStatus.OK).send(product);
   } else {
     console.log("Why else?")
   }

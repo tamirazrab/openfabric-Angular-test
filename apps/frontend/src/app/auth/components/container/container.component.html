@@ -1,0 +1,15 @@
+<div class="auth-page">
+  <div class="auth-page-content">
+    <div class="auth-page-form">
+      <openfabric-angular-test-login *ngIf="showLoginForm"></openfabric-angular-test-login>
+      <openfabric-angular-test-register *ngIf="showSignupForm"></openfabric-angular-test-register>
+    </div>
+    <div class="auth-page-paragraph">
+      <p>{{ showLoginForm ? 'Already have an account? Please login.' : 'Don\'t have an account? Sign up now.' }}</p>
+    </div>
+    <div class="auth-page-toggle">
+      <button mat-raised-button color="accent" *ngIf="!showLoginForm" (click)="toggleForm(true)">Login</button>
+      <button mat-raised-button color="accent" *ngIf="!showSignupForm" (click)="toggleForm(false)">Signup</button>
+    </div>
+  </div>
+</div>

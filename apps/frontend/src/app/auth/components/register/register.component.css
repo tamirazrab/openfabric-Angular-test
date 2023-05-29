@@ -1,0 +1,46 @@
+.container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+button[type='submit'] {
+  width: 100%;
+}
+
+mat-card {
+  width: 400px;
+  text-align: center;
+  padding: 20px 0px;
+}
+
+mat-error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+p {
+  margin-top: 16px;
+}
+
+a {
+  cursor: pointer;
+}

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="filters">
+    <button mat-raised-button color="primary" class="add-button" (click)="addNewProduct()" *ngIf="loggedIn$ | async">Add New Product</button>
+    <button mat-raised-button color="accent" class="sort-button" (click)="onSortChange('price:asc')">Sort by Price
+      (Low
+      to High)</button>
+    <button mat-raised-button class="sort-button" (click)="onSortChange('price:desc')">Sort by Price (High to
+      Low)</button>
+
+  </div>
+
+  <div class="product-list">
+    <div class="product-card" *ngFor="let product of products">
+      <openfabric-angular-test-card [product]="product"></openfabric-angular-test-card>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="limit" [length]="totalResults"
+      [showFirstLastButtons]="true" [pageIndex]="currentPage" aria-label="Select page"
+      (page)="handlePageEvent($event)"></mat-paginator>
+  </div>
+</div>

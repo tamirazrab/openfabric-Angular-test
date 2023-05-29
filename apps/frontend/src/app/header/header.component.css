@@ -1,0 +1,43 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-left {
+  flex-grow: 1;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  white-space: nowrap;
+  padding-left: 10px;
+}
+
+.header-right {
+  padding-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.person-icon {
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 600px) {
+  .header-right {
+    padding-right: 0;
+  }
+}

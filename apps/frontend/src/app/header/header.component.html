@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <span class="header-title" (click)="navigateToHome()">OpenFabric Shop</span>
+  <div class="header-right">
+    <ng-container *ngIf="loggedIn$| async; else joinUsButton">
+      <div class="user-info">
+        <div *ngIf="user$ | async as user">
+          <mat-icon class="person-icon">person</mat-icon>
+          <span class="user-name">{{ user.name }}</span>
+        </div>
+        <button mat-icon-button (click)="logout()" aria-label="Logout">
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #joinUsButton>
+      <button mat-raised-button color="accent" routerLink="/auth">Join Us</button>
+    </ng-template>
+  </div>
+</mat-toolbar>
