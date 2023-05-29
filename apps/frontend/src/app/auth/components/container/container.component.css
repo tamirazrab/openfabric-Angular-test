@@ -1,0 +1,31 @@
+.auth-page {
+  padding-top: 91px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-page-content {
+  text-align: center;
+}
+
+.auth-page-heading {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.auth-page-form {
+  margin-bottom: 20px;
+}
+
+.auth-page-paragraph {
+  margin-top: 20px;
+}
+
+.auth-page-toggle {
+  margin-top: 20px;
+}
+
+.auth-page-toggle button {
+  margin-right: 10px;
+}
