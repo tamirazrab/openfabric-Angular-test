@@ -21,7 +21,6 @@ export class EditComponent implements OnInit {
 
   @Input() product: Product;
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onUpdate: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -97,7 +96,8 @@ export class EditComponent implements OnInit {
       this.productService.updateProduct(this.productId, product).subscribe(
         () => {
           this.snackBar.open('Product updated successfully!', 'Close', { duration: 3000 });
-          this.onUpdate.emit();
+          this.cancelEdit()
+          this.router.navigate(['/product', this.productId]);
         },
         (error) => {
           let errorMessage = 'An error occurred while updating the product.';

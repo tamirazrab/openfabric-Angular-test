@@ -33,18 +33,31 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe(
-      () => {
-        this.router.navigate(['/home']);
-        this.snackBar.open('You have been logged out', 'Dismiss', {
-          duration: 3000, // Snackbar duration in milliseconds
-          verticalPosition: 'top', // Snackbar position
-        });
-      },
-      (error) => {
-        console.log('Logout error:', error);
-      }
-    );
+    const refreshToken = this.tokenStorageService.getRefreshToken();
+    if (refreshToken) {
+      this.authService.logout().subscribe(
+        () => {
+          this.router.navigate(['/home']);
+          this.snackBar.open('You have been logged out', 'Dismiss', {
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+
+          // FIXME - Hacky solution - params route messing up
+          window.location.href = '/';
+        },
+        (error) => {
+          console.log('Logout error:', error);
+        }
+      );
+    } else {
+      this.tokenStorageService.clearTokens();
+      this.router.navigate(['/home']);
+      this.snackBar.open('You have been logged out', 'Dismiss', {
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+    }
   }
 
   navigateToHome(): void {
