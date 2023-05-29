@@ -3,7 +3,7 @@ import { password, objectId } from '../validate/custom.validation';
 import { IProduct, ProductBrand, ProductCategory } from './product.interfaces';
 
 const createProductBody: Record<keyof IProduct, any> = {
-  name: Joi.string().trim().required().max(20),
+  name: Joi.string().trim().required().max(34),
   description: Joi.string().trim().required().max(500),
   price: Joi.number().required().min(0),
   category: Joi.string().valid(...ProductCategory).required(),

@@ -42,14 +42,14 @@ export class EditComponent implements OnInit {
 
   buildProductForm(): void {
     this.productForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(24)]],
+      name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(34)]],
       description: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(500)]],
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       category: ['', [Validators.required, Validators.pattern(/^(Electronics|Clothing|Home|Books|Beauty)$/)]],
       brand: ['', [Validators.required, Validators.pattern(/^(Apple|Nike|IKEA|L'Oreal)$/)]],
       quantity: ['', [Validators.required, Validators.min(0)]],
       imageUrl: ['', Validators.required],
-      isActive: [false, Validators.required],
+      isActive: [true],
       tags: ['']
     });
   }
