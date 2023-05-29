@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { Product } from '../../model/product.model';
+import { Observable } from 'rxjs';
+import { ProductService } from '../../product.service';
 
 
 @Component({
@@ -7,11 +9,18 @@ import { Product } from '../../model/product.model';
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.css'],
 })
-export class ViewComponent {
-  @Input() product: Product;
+export class ViewComponent implements OnInit{
+  product$: Observable<Product | null>;
 
   constructor(
+    private productService: ProductService,
   ) { }
+  ngOnInit(): void {
+    this.product$ = this.productService.getProductState();
+    this.product$.subscribe((product) => {
+      console.log('Product:', product);
+    });
+  }
 
 
 

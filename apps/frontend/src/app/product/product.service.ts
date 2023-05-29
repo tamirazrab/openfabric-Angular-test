@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Product } from './model/product.model';
 import { environment } from '../../environment';
@@ -27,6 +27,7 @@ interface ProductResponse {
 })
 export class ProductService {
   private apiUrl = `${environment.apiUrl}/products`;
+  private product$ = new BehaviorSubject<Product | null>(null);
 
   constructor(private http: HttpClient) { }
 
@@ -51,7 +52,13 @@ export class ProductService {
     );
   }
 
+  getProductState(): Observable<Product | null> {
+    return this.product$.asObservable();
+  }
 
+  setProductState(product: Product | null): void {
+    this.product$.next(product);
+  }
 
   getProductById(productId: string): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${productId}`).pipe(

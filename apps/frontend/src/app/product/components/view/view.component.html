@@ -1,43 +1,45 @@
 <div class="container">
-  <div class="product-image">
-    <!-- Product image -->
-    <img [src]="product.imageUrl" alt="Product Image">
-  </div>
+  <ng-container *ngIf="product$ | async as product">
+    <div class="product-image">
+      <!-- Product image -->
+      <img [src]="product.imageUrl" alt="Product Image">
+    </div>
 
-  <div class="product-details">
-    <h2 class="product-name">{{ product.name }}</h2>
-    <p class="description">{{ product.description }}</p>
+    <div class="product-details">
+      <h2 class="product-name">{{ product.name }}</h2>
+      <p class="description">{{ product.description }}</p>
 
-
-    <div class="details-grid">
+      <div class="details-grid">
         <div class="price-container">
           <!-- <mat-icon class="price-icon">attach_money</mat-icon> -->
           <span class="price">{{ product.price | currency }}</span>
         </div>
 
-      <div class="detail">
-        <span class="label">Category:</span>
-        <div class="chips">
-          <mat-chip color="primary">{{ product.category }}</mat-chip>
+        <div class="detail">
+          <span class="label">Category:</span>
+          <div class="chips">
+            <mat-chip color="primary">{{ product.category }}</mat-chip>
+          </div>
+        </div>
+        <div class="detail">
+          <span class="label">Brand:</span>
+          <div class="chips">
+            <mat-chip color="accent">{{ product.brand }}</mat-chip>
+          </div>
+        </div>
+        <div class="detail">
+          <span class="label">Quantity:</span>
+          <span class="value">{{ product.quantity }}</span>
         </div>
       </div>
-      <div class="detail">
-        <span class="label">Brand:</span>
-        <div class="chips">
-          <mat-chip color="accent">{{ product.brand }}</mat-chip>
-        </div>
-      </div>
-      <div class="detail">
-        <span class="label">Quantity:</span>
-        <span class="value">{{ product.quantity }}</span>
-      </div>
-    </div>
 
-    <div class="tags">
-      <span class="label">Tags:</span>
-      <div class="chips">
-        <mat-chip *ngFor="let tag of product.tags" color="warn">{{ tag }}</mat-chip>
+      <div class="tags">
+        <span class="label">Tags:</span>
+        <div class="chips">
+          <mat-chip *ngFor="let tag of product.tags" color="warn">{{ tag }}</mat-chip>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
 </div>

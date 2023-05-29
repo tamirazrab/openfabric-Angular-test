@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductService } from '../../product.service';
 import { Product } from '../../model/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, take } from 'rxjs';
 
 @Component({
   selector: 'openfabric-angular-test-edit',
@@ -19,7 +20,7 @@ export class EditComponent implements OnInit {
 
   isNewProduct: boolean;
 
-  @Input() product: Product;
+  product$: Observable<Product | null>;
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
@@ -30,12 +31,20 @@ export class EditComponent implements OnInit {
     private router: Router
   ) { }
 
+
   ngOnInit(): void {
     this.productId = this.route.snapshot.paramMap.get('productId') ?? '';
     this.isNewProduct = !this.productId;
     this.buildProductForm();
+
+    this.product$ = this.productService.getProductState();
+
     if (!this.isNewProduct) {
-      this.productForm.patchValue(this.product);
+      this.product$.pipe(take(1)).subscribe((product) => {
+        if (product) {
+          this.productForm.patchValue(product);
+        }
+      });
     }
   }
 
@@ -94,10 +103,13 @@ export class EditComponent implements OnInit {
       );
     } else {
       this.productService.updateProduct(this.productId, product).subscribe(
-        () => {
+        (product) => {
           this.snackBar.open('Product updated successfully!', 'Close', { duration: 3000 });
+
+          this.productService.setProductState(product)
+
           this.cancelEdit()
-          this.router.navigate(['/product', this.productId]);
+          // this.router.navigate(['/product', this.productId]);
         },
         (error) => {
           let errorMessage = 'An error occurred while updating the product.';

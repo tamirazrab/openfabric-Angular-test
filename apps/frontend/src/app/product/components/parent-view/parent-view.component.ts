@@ -7,7 +7,6 @@ import { AuthService } from '../../../auth/auth.service';
 import { ProductService } from '../../product.service';
 import { Product } from '../../model/product.model';
 import { Observable, Subscription } from 'rxjs';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'openfabric-angular-test-parent-view',
@@ -18,7 +17,6 @@ export class ParentViewComponent implements OnInit, OnDestroy {
   product: Product;
   productId: string;
   isEditOpen = false;
-  // user$: Observable<User | null>;
   loggedIn$: Observable<boolean>;
 
   private userSubscription: Subscription;
@@ -31,17 +29,15 @@ export class ParentViewComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private authService: AuthService,
     private productService: ProductService,
-    private location: Location
   ) {
 
   }
   ngOnInit(): void {
     this.productId = this.route.snapshot.paramMap.get('productId') ?? '';
     this.fetchProduct();
-    // this.user$ = this.authService.getUser();
+
     this.loggedIn$ = this.authService.getLoggedIn();
 
-    // this.userSubscription = this.user$.subscribe();
     this.loggedInSubscription = this.loggedIn$.subscribe();
   }
 
@@ -61,16 +57,18 @@ export class ParentViewComponent implements OnInit, OnDestroy {
   fetchProduct(): void {
     this.productService.getProductById(this.productId).subscribe(
       (product: Product) => {
-        if (product)
+        if (product) {
           this.product = product;
+          this.productService.setProductState(product)
+        }
         else {
           this.snackBar.open('Product does not exist in the database.', 'Close', { duration: 3000 });
-          this.router.navigate(['/']); // Redirect to root page if product is not found
+          this.router.navigate(['/']);
         }
       },
       (error) => {
         console.error(error);
-        this.router.navigate(['/']); // Redirect to root page if product not found
+        this.router.navigate(['/']);
       }
     );
   }
@@ -101,10 +99,10 @@ export class ParentViewComponent implements OnInit, OnDestroy {
         this.snackBar.open('Product deleted successfully.', 'OK', {
           duration: 3000
         });
-        this.router.navigate(['/']);
+        // FIXME - Hacky solution due to short time
+        window.location.href = '/';
       },
       (error) => {
-        // Handle error and display appropriate message
         console.error(error);
       }
     );
