@@ -17,9 +17,6 @@ export class ViewComponent implements OnInit{
   ) { }
   ngOnInit(): void {
     this.product$ = this.productService.getProductState();
-    this.product$.subscribe((product) => {
-      console.log('Product:', product);
-    });
   }
 
 

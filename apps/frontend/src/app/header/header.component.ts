@@ -62,7 +62,8 @@ export class HeaderComponent implements OnInit {
 
   navigateToHome(): void {
     // FIXME - on param route /:productId it doesn't route properly back - have to click two times
-    this.router.navigateByUrl('/');
+    // this.router.navigateByUrl('/');
+    window.location.href = '/';
   }
 
 

@@ -13,7 +13,7 @@
 
   <div class="product-content">
     <ng-template [ngIf]="!isEditOpen">
-      <openfabric-angular-test-view></openfabric-angular-test-view>
+      <openfabric-angular-test-view (on)="cancelEdit()"></openfabric-angular-test-view>
     </ng-template>
     <ng-template [ngIf]="isEditOpen">
       <openfabric-angular-test-edit (onCancel)="cancelEdit()"></openfabric-angular-test-edit>
