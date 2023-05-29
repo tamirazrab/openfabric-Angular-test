@@ -5,7 +5,8 @@
   </mat-card-header>
   <img mat-card-image [src]="product.imageUrl" [alt]="product.name">
   <mat-card-content class="content">
-    <p>{{ product.description }}</p>
+<p>{{ truncateDescription(product.description) }}</p>
+
     <div class="price-brand-container">
       <div class="price-container">
         <!-- <mat-icon class="price-icon">attach_money</mat-icon> -->

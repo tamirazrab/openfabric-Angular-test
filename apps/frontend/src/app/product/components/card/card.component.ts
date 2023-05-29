@@ -15,4 +15,14 @@ export class CardComponent {
   redirectToProduct(productId: string | undefined): void {
     this.router.navigate(['/product', productId]);
   }
+
+  truncateDescription(description: string): string {
+    const maxLength = 169;
+    if (description.length > maxLength) {
+      return description.slice(0, maxLength) + '...';
+    } else {
+      return description;
+    }
+  }
+
 }
