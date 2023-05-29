@@ -1,0 +1,31 @@
+<mat-card class="product-card" (click)="redirectToProduct(product.id)">
+  <mat-card-header>
+    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="product.imageUrl" [alt]="product.name">
+  <mat-card-content class="content">
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <div class="price-brand-container">
+      <div class="price-container">
+        <!-- <mat-icon class="price-icon">attach_money</mat-icon> -->
+        <span class="price">{{ product.price | currency }}</span>
+      </div>
+      <div class="brand-container">
+        <mat-icon class="brand-icon">label</mat-icon>
+        <span class="brand">{{ product.brand }}</span>
+
+      </div>
+      <div class="quantity-container">
+        <mat-icon class="quantity-icon">shopping_cart</mat-icon>
+        <span class="quantity">{{ product.quantity }}</span>
+      </div>
+    </div>
+    <mat-chip-listbox class="tag-container">
+      <mat-chip *ngFor="let tag of product.tags" class="tag-small">{{ tag }}</mat-chip>
+    </mat-chip-listbox>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button class="view-button-large" color="primary">View</button>
+  </mat-card-actions>
+</mat-card>

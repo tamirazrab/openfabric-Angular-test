@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema<IProductDoc, IProductModel>(
       required: true,
       trim: true,
       minlength: 6,
-      maxlength: 100,
+      maxlength: 34,
     },
     description: {
       type: String,
@@ -65,8 +65,8 @@ const productSchema = new mongoose.Schema<IProductDoc, IProductModel>(
 );
 
 
-productSchema.plugin(paginate);
 productSchema.plugin(toJSON);
+productSchema.plugin(paginate);
 
 const Product = mongoose.model<IProductDoc, IProductModel>('Product', productSchema);
 

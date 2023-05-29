@@ -56,8 +56,8 @@ const productOne = {
   quantity: faker.number.int({ min: 0, max: 100 }),
   imageUrl: faker.image.url(),
   isActive: faker.datatype.boolean(),
-};
 
+};
 const productTwo = {
   _id: new mongoose.Types.ObjectId(),
   name: faker.commerce.productName(),
@@ -85,6 +85,10 @@ const insertUser = async (user: Record<string, any>) => {
 };
 
 const insertProducts = async (products: Record<string, any>[]) => {
+  await Product.insertMany(products.map((product) => ({ ...product })));
+};
+
+const seedProducts = async (products: Record<string, any>[]) => {
   await Product.insertMany(products.map((product) => ({ ...product })));
 };
 
@@ -510,5 +514,41 @@ describe('Product routes', () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
+  });
+
+  describe('SEED Product data using faker', () => {
+    test('should seed 50 products into database using faker', async () => {
+      await insertUser(user)
+
+      const numberOfDocuments = 50;
+
+      const products: IProduct[] = [];
+      for (let i = 0; i < numberOfDocuments; i++) {
+        const product = {
+          _id: new mongoose.Types.ObjectId(),
+          name: faker.commerce.productName(),
+          description: faker.lorem.paragraph(5),
+          price: faker.number.int({ min: 1, max: 100 }),
+          tags: [faker.commerce.productAdjective(), faker.commerce.productAdjective(), faker.commerce.productAdjective()],
+          category: getRandomCategory(),
+          brand: getRandomBrand(),
+          quantity: faker.number.int({ min: 0, max: 100 }),
+          imageUrl: faker.image.url(),
+          isActive: faker.datatype.boolean(),
+        };
+
+        products.push(product);
+      }
+
+      try {
+        await seedProducts(products);
+
+        const productCount = await Product.countDocuments();
+        expect(productCount).toBe(numberOfDocuments);
+      } catch (error) {
+        console.log("🚀 ~ file: product.test.ts:546 ~ test ~ error:", error)
+      }
+
+    });
   });
 });

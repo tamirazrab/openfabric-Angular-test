@@ -1,0 +1,102 @@
+<div class="container">
+  <h2>{{ isNewProduct ? 'Create Product' : 'Edit Product' }}</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Name" required>
+      <mat-error
+        *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)">
+        <span *ngIf="productForm.get('name')?.errors?.['required']">Name is required.</span>
+        <span *ngIf="productForm.get('name')?.errors?.['minlength']">
+          Name should be at least 6 characters long.
+        </span>
+        <span *ngIf="productForm.get('name')?.errors?.['maxlength']">
+          Name should not exceed 24 characters.
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput formControlName="description" placeholder="Description" required></textarea>
+      <mat-error
+        *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.dirty || productForm.get('description')?.touched)">
+        <span *ngIf="productForm.get('description')?.errors?.['required']">Description is required.</span>
+        <span *ngIf="productForm.get('description')?.errors?.['minlength']">
+          Description should be at least 100 characters long.
+        </span>
+        <span *ngIf="productForm.get('description')?.errors?.['maxlength']">
+          Description should not exceed 500 characters.
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="price" placeholder="Price" required>
+      <mat-error
+        *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched)">
+        <span *ngIf="productForm.get('price')?.errors?.['required']">Price is required.</span>
+        <span *ngIf="productForm.get('price')?.errors?.['pattern']">
+          Price must be a valid decimal number with up to two decimal places.
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" required>
+        <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="productForm.get('category')?.invalid && (productForm.get('category')?.dirty || productForm.get('category')?.touched)">
+        <span *ngIf="productForm.get('category')?.errors?.['required']">Category is required.</span>
+        <span *ngIf="productForm.get('category')?.errors?.['pattern']">
+          Invalid category. Choose from Electronics, Clothing, Home, Books, or Beauty.
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Brand</mat-label>
+      <mat-select formControlName="brand" required>
+        <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="productForm.get('brand')?.invalid && (productForm.get('brand')?.dirty || productForm.get('brand')?.touched)">
+        <span *ngIf="productForm.get('brand')?.errors?.['required']">Brand is required.</span>
+        <span *ngIf="productForm.get('brand')?.errors?.['pattern']">
+          Invalid brand. Choose from Apple, Nike, IKEA, or L'Oreal.
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="quantity" placeholder="Quantity" required>
+      <mat-error
+        *ngIf="productForm.get('quantity')?.invalid && (productForm.get('quantity')?.dirty || productForm.get('quantity')?.touched)">
+        <span *ngIf="productForm.get('quantity')?.errors?.['required']">Quantity is required.</span>
+        <span *ngIf="productForm.get('quantity')?.errors?.['min']">
+          Quantity must be a positive number or zero.
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="imageUrl" placeholder="Image URL" required>
+      <mat-error
+        *ngIf="productForm.get('imageUrl')?.invalid && (productForm.get('imageUrl')?.dirty || productForm.get('imageUrl')?.touched)">
+        <span *ngIf="productForm.get('imageUrl')?.errors?.['required']">Image URL is required.</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="tags" placeholder="Tags (comma-separated)">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">
+        {{ isNewProduct ? 'Create' : 'Edit' }}
+      </button>
+    </div>
+  </form>
+</div>

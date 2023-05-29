@@ -1,0 +1,22 @@
+<div class="product-container">
+  <div class="actions" *ngIf="loggedIn$ | async">
+    <button mat-icon-button color="primary" (click)="editProduct()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="confirmDeleteProduct()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <button mat-icon-button color="accent" class="back-button" (click)="navigateToRoot()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <div class="product-content">
+    <ng-template [ngIf]="!isEditOpen">
+      <openfabric-angular-test-view [product]="product"></openfabric-angular-test-view>
+    </ng-template>
+    <ng-template [ngIf]="isEditOpen">
+      <openfabric-angular-test-edit [product]="product" (onCancel)="cancelEdit()"></openfabric-angular-test-edit>
+    </ng-template>
+  </div>
+</div>

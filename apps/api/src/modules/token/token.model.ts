@@ -17,7 +17,7 @@ const tokenSchema = new mongoose.Schema<ITokenDoc, ITokenModel>(
     },
     type: {
       type: String,
-      enum: [tokenTypes.REFRESH, tokenTypes.RESET_PASSWORD],
+      enum: [tokenTypes.REFRESH],
       required: true,
     },
     expires: {

@@ -22,6 +22,7 @@ export const createProduct = async (productBody: IProduct): Promise<IProductDoc>
  */
 export const queryProducts = async (filter: Record<string, any>, options: IOptions): Promise<QueryResult> => {
   const products = await Product.paginate(filter, options);
+  console.log("🚀 ~ file: product.service.ts:25 ~ queryProducts ~ products:", products)
   return products;
 };
 
